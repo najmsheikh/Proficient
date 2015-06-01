@@ -48,6 +48,6 @@ app.post('/gethelp', function(req, res) {
     });
     res.end();
 });
-app.listen(1337, function() {
-    console.log("Server is up.");
+app.listen(process.env.PORT, function() {
+    console.log("Server is up  running at port: " + process.env.PORT);
 })
