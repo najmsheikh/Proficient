@@ -46,7 +46,7 @@ app.post('/gethelp', function(req, res) {
     res.end();
 });
 
-app.post('/signup', function(req, res){
+app.post('/signup', function(req, res) {
     var name = req.body.client;
     var number = req.body.number;
     var subject = req.body.subject;
@@ -60,4 +60,4 @@ app.post('/signup', function(req, res){
 
 app.listen(process.env.PORT, function() {
     console.log("Server is up  running at port: " + process.env.PORT);
-})
+});
