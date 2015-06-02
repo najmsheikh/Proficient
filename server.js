@@ -1,11 +1,11 @@
-var firebase = require('firebase');
-var twilio = require('twilio')(process.env.TWILIO_TEST_SID, process.env.TWILIO_TEST_CODE);
-var fb = new firebase(process.env.FIREBASE_URL);
-var rwg = require('random-word-generator');
-var generator = new rwg();
-
 var express = require('express');
+var firebase = require('firebase');
 var bodyParser = require('body-parser');
+var rwg = require('random-word-generator');
+var twilio = require('twilio')(process.env.TWILIO_TEST_SID, process.env.TWILIO_TEST_CODE);
+
+var fb = new firebase(process.env.FIREBASE_URL);
+var generator = new rwg();
 var app = express();
 
 app.use(bodyParser.urlencoded({
@@ -29,7 +29,7 @@ app.post('/gethelp', function(req, res) {
 
             twilio.sms.messages.create({
                 to: number,
-                from: '+15005550006',
+                from: process.env.TWILIO_TEST_NUMBER,
                 body: 'Hey ' + name + ', ' + client + ' needs your help in ' + subject + '. You may choose to help them out by going to ' + room
             }, function(err, msg) {
                 if (err)
