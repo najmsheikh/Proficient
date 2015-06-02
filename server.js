@@ -17,15 +17,11 @@ app.get('/', function(req, res) {
 });
 app.post('/gethelp', function(req, res) {
     var client = req.body.client;
-    // var number = req.body.number;
     var subject = req.body.subject;
     var room = 'http://appear.in/' + generator.generate();
 
-    // AppearIn.getRandomRoomName()(function (roomName){
-    //     console.log('works!')
-    // });
-
-    fb.once('value', function(datasnap) {
+    var fbChild = fb.child(subject);
+    fbChild.once('value', function(datasnap) {
         datasnap.forEach(function(snapshot) {
             var name = snapshot.child('name').val();
             var number = snapshot.child('number').val();
@@ -38,10 +34,10 @@ app.post('/gethelp', function(req, res) {
                 if (err)
                     console.log('Oh crap! Something effed up!');
                 if (!err) {
-                    console.log('The message with the ID: \n' +
+                    console.log('\n The message with the ID: \n' +
                         msg.sid +
                         '\n was sucessfully sent to ' + msg.to);
-                    console.log('The message was: ' + msg.body + '\n \n')
+                    console.log('The message was: ' + msg.body + '\n')
                 };
             });
         });
