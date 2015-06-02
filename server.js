@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
     res.sendfile("./index.html");
 });
+
 app.post('/gethelp', function(req, res) {
     var client = req.body.client;
     var subject = req.body.subject;
@@ -44,6 +45,19 @@ app.post('/gethelp', function(req, res) {
     });
     res.end();
 });
+
+app.post('/signup', function(req, res){
+    var name = req.body.client;
+    var number = req.body.number;
+    var subject = req.body.subject;
+
+    var fbChild = fb.child(subject);
+    fbChild.push({
+        'name': name,
+        'number': number
+    });
+});
+
 app.listen(process.env.PORT, function() {
     console.log("Server is up  running at port: " + process.env.PORT);
 })
