@@ -1,7 +1,7 @@
 {
-  "name": "twilio-test",
+  "name": "proficient",
   "version": "1.0.0",
-  "description": "",
+  "description": "A minimalist approach to academic peer assistance",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
