@@ -28,7 +28,7 @@ app.post('/gethelp', function(req, res) {
     twilio.sms.messages.create({
         to: clientnum,
         from: process.env.TWILIO_NUMBER,
-        body: 'Hey ' + client + ', ' + client + ' please go here and wait for others to join: ' + room
+        body: 'Hey ' + client + ', please go here and wait for others to join: ' + room
     }, function(err, msg) {});
 
     var fbChild = fb.child(subject);
