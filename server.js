@@ -15,6 +15,9 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
     res.sendfile("./index.html");
 });
+app.get(/^(.+)$/, function(req, res) {
+    res.sendfile(__dirname + req.params[0]);
+});
 
 app.post('/gethelp', function(req, res) {
     var client = req.body.client;
@@ -51,6 +54,7 @@ app.post('/signup', function(req, res) {
     var number = req.body.number;
     var subject = req.body.subject;
     var fbChild = fb.child(subject);
+    console.log('\n' + name + ' ' + number + ' ' + subject );
     fbChild.push({
         'name': name,
         'number': number

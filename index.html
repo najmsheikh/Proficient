@@ -1,33 +1,146 @@
 <html>
 
 <head>
-    <title>Simple enroll</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
-    </script>
+    <title>Proficient</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
     <script>
     $(document).ready(function() {
-        var name, image;
+        var name, phone, subject;
+        $("input:radio[name=group1]").click(function() {
+            subject = $(this).val();
+        });
         $("#submit").click(function() {
             name = $("#name").val();
-            image = $("#image").val();
-            $.post("http://localhost:1337/enroll", {
-                name: name,
-                image: image
+            phone = $("#number").val();
+            $.post("https://proficient.herokuapp.com/signup", {
+                client: name,
+                number: phone,
+                subject: subject
             }, function(data) {
-                console.log('Done!')
+                Materialize.toast('Thanks for choosing to help out!', 4000);
+                $("#name").val('');
+                $("#number").val('');
             });
         });
+        $("#submit2").click(function() {
+            name = $("#name2").val();
+            phone = $("#number2").val();
+            $.post("https://proficient.herokuapp.com/gethelp", {
+                client: name,
+                number: phone,
+                subject: subject
+            }, function(data) {
+                Materialize.toast('Someone will help you out shortly :)', 4000);
+                $("#name2").val('');
+                $("#number2").val('');
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $('select').material_select();
+        $('select').material_select('destroy');
+        $('ul.tabs').tabs();
+        $('.tooltipped').tooltip({delay: 50});
     });
     </script>
 </head>
 
-<body>
-    <h1>Hello people !</h1>
-    <input type="TEXT" id="name" size="40">
-    <br>
-    <input type="TEXT" id="image" size="40">
-    <br>
-    <input type="button" id="submit" value="Submit">
+<body class=" container grey lighten-5">
+    <h1>Hello HackMann!</h1>
+    <div >
+        <div class="card-panel center-align">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a href="#enroll">ENROLL</a></li>
+                        <li class="tab col s3"><a href="#gethelp">GET HELP</a></li>
+                    </ul>
+                </div>
+                <div id="enroll" class="col s12">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="name" type="text" class="validate">
+                                    <label for="name">Name</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="number" type="text" class="validate">
+                                    <label for="number">Phone</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <form action="#" id="subject">
+                                    <p>
+                                        <input class="pink accent-2" name="group1" type="radio" id="science" value="Science" />
+                                        <label for="science">Science</label>
+                                    </p>
+                                    <p>
+                                        <input class="pink accent-2" name="group1" type="radio" id="math" value="Mathematics" />
+                                        <label for="math">Mathematics</label>
+                                    </p>
+                                    <p>
+                                        <input class="pink accent-2" name="group1" type="radio" id="compsci" value="Computer Science" />
+                                        <label for="compsci">Computer Science</label>
+                                    </p>
+                                    <p>
+                                        <input class="pink accent-2" name="group1" type="radio" id="english" value="English" />
+                                        <label for="english">English</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </form>
+                        <a class="waves-effect waves-light btn pink accent-2" id="submit">Submit</a>
+                    </div>
+                </div>
+                <div id="gethelp" class="col s12">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="name2" type="text" class="validate">
+                                    <label for="name2">Name</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="number2" type="text" class="validate">
+                                    <label for="number2">Phone</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <form action="#" id="subject">
+                                    <p>
+                                        <input name="group1" type="radio" id="science2" value="Science" />
+                                        <label for="science2">Science</label>
+                                    </p>
+                                    <p>
+                                        <input name="group1" type="radio" id="math2" value="Mathematics" />
+                                        <label for="math2">Mathematics</label>
+                                    </p>
+                                    <p>
+                                        <input name="group1" type="radio" id="compsci2" value="Computer Science" />
+                                        <label for="compsci2">Computer Science</label>
+                                    </p>
+                                    <p>
+                                        <input name="group1" type="radio" id="english2" value="English" />
+                                        <label for="english2">English</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </form>
+                        <a class="waves-effect waves-light btn pink accent-2" id="submit2">Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
