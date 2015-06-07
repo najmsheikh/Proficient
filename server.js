@@ -50,7 +50,6 @@ app.post('/signup', function(req, res) {
     var name = req.body.client;
     var number = req.body.number;
     var subject = req.body.subject;
-
     var fbChild = fb.child(subject);
     fbChild.push({
         'name': name,
