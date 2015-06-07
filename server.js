@@ -56,6 +56,7 @@ app.post('/signup', function(req, res) {
         'name': name,
         'number': number
     });
+    res.end();
 });
 
 app.listen(process.env.PORT, function() {
