@@ -22,7 +22,14 @@ app.get(/^(.+)$/, function(req, res) {
 app.post('/gethelp', function(req, res) {
     var client = req.body.client;
     var subject = req.body.subject;
+    var clientnum = req.body.number;
     var room = 'http://appear.in/' + generator.generate();
+
+    twilio.sms.messages.create({
+        to: clientnum,
+        from: process.env.TWILIO_NUMBER,
+        body: 'Hey ' + client + ', ' + client + ' please go here and wait for others to join: ' + room
+    }, function(err, msg) {});
 
     var fbChild = fb.child(subject);
     fbChild.once('value', function(datasnap) {
@@ -54,7 +61,7 @@ app.post('/signup', function(req, res) {
     var number = req.body.number;
     var subject = req.body.subject;
     var fbChild = fb.child(subject);
-    console.log('\n' + name + ' ' + number + ' ' + subject );
+    console.log('\n' + name + ' ' + number + ' ' + subject);
     fbChild.push({
         'name': name,
         'number': number
